@@ -19,8 +19,9 @@ def VoidLine(size):
 
 # 1 표현하기
 def ONE(size, Matrix):
-    for j in range(1, size*2+2):
-        Matrix[j][size+1] = "|"
+    for j in range(0, size):
+        Matrix[j+1][size+1] = "|"
+        Matrix[j+size+2][size+1] = "|"
     return Matrix
 
 # 2 표현하기
@@ -218,14 +219,21 @@ if UserChoice == "yes":
                 Add = CombineMat(Add, CallNum(i, NumberSize, clear_matrix(NumberSize)))
             draw(Add)
 else:
-    NumberSize = int(input("Number Size?: "))
-    Number = input("Number to print?: ")
-    NumberList = list(Number)
-    if NumberSize == 0 and NumberList[0] == '0' and len(NumberList) == 0:
-        print("Program Off")
-    else:
-        Add = CallNum(NumberList[0], NumberSize, clear_matrix(NumberSize))
-        del NumberList[0]
-        for i in NumberList:
-            Add = CombineMat(Add, CallNum(i, NumberSize, clear_matrix(NumberSize)))
-        draw(Add)
+    while 1:
+        NumberSize = int(input("Number Size?: "))
+        Number = input("Number to print?: ")
+        NumberList = list(Number)
+        if NumberSize == 0 and NumberList[0] == '0' and len(NumberList) == 0:
+            print("Program Off")
+        else:
+            Add = CallNum(NumberList[0], NumberSize, clear_matrix(NumberSize))
+            del NumberList[0]
+            for i in NumberList:
+                Add = CombineMat(Add, CallNum(i, NumberSize, clear_matrix(NumberSize)))
+            draw(Add)
+        Usertry = input("AC / OFF\n")
+        if Usertry == 'AC':
+            continue
+        else:
+            print("Display OFF")
+            break
