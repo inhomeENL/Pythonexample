@@ -84,7 +84,7 @@ def EvenOddGame(FaceNum, NumofDice):
             ComOE = "ODD"
         print("Sum: %d(%s)" %(ComSum, ComOE))
         #컴터 홀짝과 유저 홀짝은 같은가
-        if ComSum != UserChoice:
+        if ComOE != UserChoice:
             print("User LOSE")
         else:
             WinNumOE += 1
@@ -121,31 +121,42 @@ SumTotalWin = 0
 OETotalWin = 0
 Result = "Change"
 while 1:
+    os.system("cls")
     #처음 혹은 주사위를 바꾸고 싶을때
     if Result =="Change":
         DICE()
     #아니면 뭐 그냥 진행
     print('''DICE RELATED GAME SERIES
+    
     1. DICE SUM GAME
     2. DICE EVENNESS GAME
     3. Exit
+    
     ''')
     GameNum = input("CHOICE: ")
+    os.system("cls")
     if GameNum == '1':
         SumGame(DiceFaceNum, DiceNum)
         if Result == "Change":
             SumTotalWin += WinNumSUM
+            os.system("cls")
             continue
         elif Result == "No":
             SumTotalWin += WinNumSUM
+            os.system("cls")
             continue
     elif GameNum == '2':
         EvenOddGame(DiceFaceNum, DiceNum)
         if Result == "Change":
+            OETotalWin += WinNumOE
+            os.system("cls")
             continue
         elif Result == "No":
+            OETotalWin += WinNumOE
+            os.system("cls")
             continue
     elif GameNum == '3' or GameNum == "exit" or GameNum == "Exit":
+        os.system("cls")
         print("User Won SUM GAME %s time(s), EVENNESS GAME %s time(s)" %(SumTotalWin, OETotalWin))
         print("Program END")
         break
