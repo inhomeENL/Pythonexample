@@ -30,7 +30,7 @@ while 1:                                                                    # �
             ut = 0
             print("포기하셨습니다")
             break                                                           # 입력받는 무한루프 탈출
-        elif int(a) <= int(int(Max)/10) or int(a) > Max:
+        elif int(a) < int(Max/100) or int(a) > Max:
             fail = 1
             continue                                                        # 다시 입력받는 무한루프 처음부터
         else:
