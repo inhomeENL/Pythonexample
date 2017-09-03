@@ -24,13 +24,12 @@ while 1:                                                                    # �
             a = input("입력이 잘못되었습니다.\n")
         ut = 1
         Max = 1
-        for i in range(0, NumberLen):
-            Max = Max * 10
+        userlist = list(a)
         if int(a) < 0:                                                      # 중도포기과정(1/3)
             ut = 0
             print("포기하셨습니다")
             break                                                           # 입력받는 무한루프 탈출
-        elif int(a) < int(Max/100) or int(a) > Max:
+        elif len(userlist) != NumberLen:
             fail = 1
             continue                                                        # 다시 입력받는 무한루프 처음부터
         else:
