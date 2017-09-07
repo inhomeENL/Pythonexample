@@ -7,7 +7,7 @@ def CoffeeOut (CoffeeNum, MoneyLeft, StockList):
         return "Again"
     else:
         TextCut = list(BeverageMenu[CoffeeNum][0])
-        print("Takeout %s (Ready)\n" %("".join(TextCut[3:])))
+        print("\nTakeout %s (Ready)\n" %("".join(TextCut[3:])))
         MoneyLeft = int(MoneyLeft) - BeverageMenu[CoffeeNum][1]
         return MoneyLeft
 
@@ -23,10 +23,11 @@ def MenuOut(Admin):
             print("4. Change\n")
             break
         else:
-            print("Coffee Editor Mode ON...\n")
+            print("\nCoffee Editor Mode ON...\n")
             for i in range(1,4):
                 print(BeverageMenu[i][0], end=" : ")
                 print(StockList[i-1])
+            print("")
             EditChoice = input("Coffee Change(1~3, exit): ")
             if EditChoice == "exit" or EditChoice == "Exit" or EditChoice == "EXIT":
                 return StockList
@@ -100,7 +101,6 @@ while 1:
             continue
         else:
             StockHandOver[int(UserChoice) - 1] = StockHandOver[int(UserChoice)-1] - 1
-            print("Stock Hand Over After : %s" %StockHandOver)
             StockSync(StockHandOver)
             UserMoney = Processing
             print("Money Left : %s\n" %(UserMoney))
