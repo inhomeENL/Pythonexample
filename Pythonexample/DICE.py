@@ -104,6 +104,59 @@ def EvenOddGame(FaceNum, NumofDice):
             else:
                 continue
 
+#3. 주사위 듀얼 게임
+def DiceDual(FaceNum, NumofDice):
+    global WinNumDD
+    WinNumDD = 0
+    while 1:
+        ComHealth = 100
+        print("ComeHealth : %d" %ComHealth)
+        UserHealth = 100
+        print("UserHealth: %d" %UserHealth)
+        ComSum = 0
+        UserSum = 0
+        for i in range(0, NumofDice):
+            ComDice = random.randint(1, FaceNum)
+            ComSum = ComSum + ComDice
+        print("Computer Sum: %d" %ComSum)
+        for i in range(0, NumofDice):
+            UserDice = random.randint(1, FaceNum)
+            UserSum = UserSum + UserDice
+        print("User Sum: %d" %UserSum)
+        if ComSum == UserSum:
+            pass
+        elif ComSum < UserSum:
+            ComHealth = ComHealth - (UserSum - ComSum)
+        else:
+            UserHealth = UserHealth - (ComSum - UserSum)
+        print("ComeHealth : %d" %ComHealth)
+        print("UserHealth: %d" %UserHealth)
+        while 1:
+            UserTry = input("Retry? (yes / no / change)\n")
+            global Result
+            if UserTry == "no":
+                Result = "No"
+                if UserHealth == ComHealth:
+                    pass
+                elif UserHealth < ComHealth:
+                    pass
+                else:
+                    WinNumDD = WinNumDD +1
+                return (Result, WinNumDD)
+            elif UserTry == "yes":
+                break
+            elif UserTry == "change":
+                Result = "Change"
+                if UserHealth == ComHealth:
+                    pass
+                elif UserHealth < ComHealth:
+                    pass
+                else:
+                    winNumDD = winNumDD +1
+                return (Result, WinNumDD)
+            else:
+                continue
+
 #주사위 면 & 개수 설정
 def DICE():
     while 1:
@@ -119,6 +172,7 @@ def DICE():
 #주사위 게임 프로그램 목록
 SumTotalWin = 0
 OETotalWin = 0
+DDTotalWin = 0
 Result = "Change"
 while 1:
     os.system("cls")
@@ -130,7 +184,8 @@ while 1:
     
     1. DICE SUM GAME
     2. DICE EVENNESS GAME
-    3. Exit
+    3. DICE DUAL GAME
+    4. Exit
     
     ''')
     GameNum = input("CHOICE: ")
@@ -155,9 +210,20 @@ while 1:
             OETotalWin += WinNumOE
             os.system("cls")
             continue
-    elif GameNum == '3' or GameNum == "exit" or GameNum == "Exit":
+    elif GameNum == '3':
+        DiceDual(DiceFaceNum, DiceNum)
+        if Result == "Change":
+            DDTotalWin += WinNumDD
+            os.system("cls")
+            continue
+        elif Result == "No":
+            DDTotalWin += WinNumDD
+            os.system("cls")
+            continue
+    elif GameNum == '4' or GameNum == "exit" or GameNum == "Exit":
         os.system("cls")
-        print("User Won SUM GAME %s time(s), EVENNESS GAME %s time(s)" %(SumTotalWin, OETotalWin))
+        print("User Won SUM GAME %s time(s), EVENNESS GAME %s time(s), DICEDUAL GAME %s time(s)"
+              %(SumTotalWin, OETotalWin, DDTotalWin))
         print("Program END")
         break
     else:
