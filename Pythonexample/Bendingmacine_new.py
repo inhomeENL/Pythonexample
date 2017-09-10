@@ -81,7 +81,10 @@ BeverageMenu = {1:["1. Black Coffee",100, StockHandOver[0]], 2: ["2. Milk Coffee
 print(BeverageMenu)
 UserMoney = int(input("Money : "))
 Processing = 0
+UserChoice = 0
 while 1:
+    if UserMoney < 100:
+        break
     MenuOut(0)
     UserChoice = input("Choose Coffee : ")
     if UserChoice == "admin":
@@ -108,6 +111,6 @@ while 1:
 if int(UserChoice) == 4:
     print("\nChange : %s" %UserMoney)
     File('write', StockHandOver)
-if Processing == "Nope":
+if Processing == "Nope" or UserMoney < 100:
     print("\nNot Enough Money... Change : %s" %UserMoney)
     File('write', StockHandOver)

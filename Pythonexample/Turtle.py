@@ -3,6 +3,7 @@ import random
 import copy
 
 turtle = turtle.Turtle()
+turtle.speed(0)
 Diameter = int(input("Circle Diameter: "))
 turtle.penup()
 turtle.right(90)
