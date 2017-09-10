@@ -1,5 +1,6 @@
 import turtle
 import random
+import copy
 
 turtle = turtle.Turtle()
 Diameter = int(input("Circle Diameter: "))
@@ -14,22 +15,32 @@ turtle.home()
 turtle.pendown()
 TurtleEnd = 0
 while 1:
-    UserLength = int(input("Forward: "))
+    UserLength = input("Forward(Num or End): ")
+    if UserLength == 'End':
+        TurtleEnd = 1
+        break
+    else:
+        UserLength = int(UserLength)
     turtle.forward(UserLength)
-    Heading = random.randint(0, 360)
-    turtle.right(Heading)
     (x, y) = turtle.position()
     if x*x + y*y > Diameter*Diameter:
         turtle.undo()
-        turtle.undo()
+        Forward = copy.deepcopy(UserLength)
         while 1:
-            turtle.forward(1)
+            Forward = Forward/2
+            if Forward > 1:
+                turtle.forward(Forward)
+            else:
+                turtle.forward(1)
             (x, y) = turtle.position()
-            if x*x + y*y > Diameter*Diameter:
+            if x*x + y*y > Diameter*Diameter and Forward >= 1:
+                turtle.undo()
+            elif x*x + y*y > Diameter*Diameter and Forward <= 1:
                 turtle.undo()
                 TurtleEnd = 1
                 break
     if TurtleEnd == 1:
         break
-
+    Heading = random.randint(0, 360)
+    turtle.right(Heading)
 turtle.screen.mainloop()
