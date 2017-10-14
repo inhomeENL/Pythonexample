@@ -1,3 +1,3 @@
-print(" "*5, end="")
-print("*"*5)
-print("%d a" %3)
+KeyList = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]
+KeyList.remove(7)
+print(KeyList)

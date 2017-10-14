@@ -79,6 +79,7 @@ print(StockHandOver)
 BeverageMenu = {1:["1. Black Coffee",100, StockHandOver[0]], 2: ["2. Milk Coffee", 150, StockHandOver[1]],
                 3:["3. Gooooood Coffee", 250, StockHandOver[2]], 4:["Change",""], "admin":AdminMode("off")}
 print(BeverageMenu)
+
 UserMoney = int(input("Money : "))
 Processing = 0
 UserChoice = 0
