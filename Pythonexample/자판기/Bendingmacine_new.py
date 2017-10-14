@@ -16,7 +16,7 @@ def MenuOut(Admin):
     while 1:
         if Admin == 0:
             print("")
-            for i in range(1, 4):
+            for i in range(1, len(BeverageMenu)):
                 print(BeverageMenu[i][0], end=" (")
                 print(StockList[i-1], end=")")
                 print("")
@@ -24,18 +24,22 @@ def MenuOut(Admin):
             break
         else:
             print("\nCoffee Editor Mode ON...\n")
-            for i in range(1,4):
+            for i in range(1, 6):
                 print(BeverageMenu[i][0], end=" : ")
                 print(StockList[i-1])
             print("")
-            EditChoice = input("Coffee Change(1~3, exit): ")
+            EditChoice = input("Changed Menu Stock or 'exit': ")
             if EditChoice == "exit" or EditChoice == "Exit" or EditChoice == "EXIT":
                 return StockList
+            elif EditChoice == 'new':
+                NewMenuNUm = int(input("New Menu Number: "))
+                NewMenu = input('New Menu: ')
+                BeverageMenu[NewMenuNUm] = NewMenu
             else:
                 TextCut = list(BeverageMenu[int(EditChoice)][0])
                 print("\nProduct %s Check... Stock left: %s\n" %("".join(TextCut[3:]),BeverageMenu[int(EditChoice)][2]))
                 StockChange = int(input("Stock Change : "))
-                StockList[int(EditChoice)-1] = StockChange
+                StockList[int(EditChoice)-1] = StockList[int(EditChoice)-1] + StockChange
                 continue
 
 
@@ -77,21 +81,29 @@ def StockSync(NewStock):
 StockHandOver = copy.deepcopy(File('read',File('read',[0,0,0])))
 print(StockHandOver)
 BeverageMenu = {1:["1. Black Coffee",100, StockHandOver[0]], 2: ["2. Milk Coffee", 150, StockHandOver[1]],
-                3:["3. Gooooood Coffee", 250, StockHandOver[2]], 4:["Change",""], "admin":AdminMode("off")}
+                3:["3. Gooooood Coffee", 250, StockHandOver[2]], "admin":AdminMode("off")}
 print(BeverageMenu)
-
-UserMoney = int(input("Money : "))
+AdminUser = 'No'
+UserMoney = (input("Money : "))
+if UserMoney == 'admin':
+    AdminUser = 'GetCode'
+else:
+    UserMoney = int(UserMoney)
 Processing = 0
 UserChoice = 0
 while 1:
+    if AdminUser == 'GetCode':
+        GetCode = input("Admin Code : ")
+        if GetCode == 'HellYeah':
+            StockHandOver = AdminMode("on")
+            StockSync(StockHandOver)
+            continue
+        else:
+            UserMoney = (input("Normal User... Insert Money : "))
     if UserMoney < 100:
         break
     MenuOut(0)
     UserChoice = input("Choose Coffee : ")
-    if UserChoice == "admin":
-        StockHandOver = AdminMode("on")
-        StockSync(StockHandOver)
-        continue
     if int(UserChoice) < 1 and int(UserChoice) > 4:
         continue
     elif int(UserChoice) == 4:
