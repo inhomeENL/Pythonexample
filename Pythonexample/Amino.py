@@ -15,6 +15,9 @@ while 1:
         KeyList.remove(KeyList[pick-1])
         Delay = input("Next(Press ENTER)\n")
         if i == 0:
+
+
+
             break
     Do = input("Re?(y/n): ")
     if Do == 'y' or Do == 'Y':
