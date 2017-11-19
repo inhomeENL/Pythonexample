@@ -4,6 +4,8 @@ def MenuOut(AdminCode):
     File('read')
     if AdminCode == 0:
         for i in range(len(MenuListNum)):
+            if MenuList[i][2] == 0:
+                print("%d. %s (%d) - SOLD OUT" % (MenuListNum[i], MenuList[i][0], MenuList[i][1]))
             print("%d. %s (%d)" %(MenuListNum[i], MenuList[i][0], MenuList[i][1]))
         print("%d. Change (Exit)\n" %(len(MenuListNum)+1))
     else:
@@ -16,7 +18,7 @@ def MenuChange():
     while 1:
         Mode = input("Menu Manage Mode... \n\nMenu/Stock : ")
         if Mode == 'Menu':
-            ChangeWay = input("Add/Del? : ")
+            ChangeWay = input("Add/Del/Change? : ")
             if ChangeWay == "Add":
                 NewMenuID = input("\nNew Menu: ")
                 NewMenuPrice = int(input("New Menu Price : "))
@@ -24,6 +26,16 @@ def MenuChange():
                 NewMenu = [NewMenuID, NewMenuPrice, NewMenuStock]
                 MenuList.append(NewMenu)
                 MenuListNum.append(len(MenuListNum)+1)
+            elif ChangeWay == 'Change':
+                ChangeWhat = input("Name/Price? : ")
+                if ChangeWhat == 'Name':
+                    ChangeNameNum = int(input("Changed Menu #? : "))
+                    ChangeName = input("Menu Name: %s\nChanged Name? : " %MenuList[ChangeNameNum-1][0])
+                    MenuList[ChangeNameNum-1][0] = ChangeName
+                elif ChangeWhat == 'Price':
+                    ChangePriceNum = int(input("Changed Menu #? :"))
+                    ChangePrice = input("Menu Price: %s\nChanged Price?: " %MenuList[ChangePriceNum-1][1])
+                    MenuList[ChangePriceNum-1][1] = int(ChangePrice)
             elif ChangeWay == 'Del':
                 Choice = input("ID or #? : ")
                 if Choice == 'ID':
@@ -48,13 +60,8 @@ def MenuChange():
             elif Choice == "#":
                 StockChangeNum = int(input("Changed Menu Number : "))
                 Hold = StockChangeNum - 1
-            StockPrice = input("Stock/Price? : ")
-            if StockPrice == 'Stock':
-                StockChange = int(input("Changed Stock : "))
-                MenuList[Hold][2] = MenuList[Hold][2] + StockChange
-            elif StockPrice == 'Price':
-                PriceChange = int(input("Changed Price : "))
-                MenuList[Hold][1] = PriceChange
+            StockChange = int(input("Current Stock: %s\nAdditional Stock : " %MenuList[Hold][2]))
+            MenuList[Hold][2] = MenuList[Hold][2] + StockChange
         os.system('cls')
         MenuOut(1)
         UserChoice = input("Anymore Changes?(y/n) : ")
@@ -112,32 +119,48 @@ while 1:
             continue
     else:
         while 1:
-            for i in range(len(MenuList)):
-                Minimum = MenuList[0][1]
-                if Minimum >= MenuList[i][1]:
-                    Minimum = MenuList[i][1]
-            os.system('cls')
-            Money = int(Money)
-            if Money < Minimum:
-                print("Money left: %s" %Money)
-                print("Change: %d" %Money)
+            while 1:
+                Breakout = 0
+                for i in range(len(MenuList)):
+                    Minimum = MenuList[0][1]
+                    if Minimum >= MenuList[i][1]:
+                        Minimum = MenuList[i][1]
+                os.system('cls')
+                Money = int(Money)
+                if Money < Minimum:
+                    print("Money left: %s" %Money)
+                    print("Change: %d" %Money)
+                    break
+                print("Money left : %d" %Money)
+                MenuOut(0)
+                UserChoice = int(input("Coffee # : "))
+                if UserChoice == len(MenuListNum)+1:
+                    print("User Choice: Change...\nChange : %d" %Money)
+                    Breakout = 0
+                    break
+                if Money < MenuList[UserChoice-1][1]:
+                    print(Money)
+                    print(MenuList[UserChoice-1][1])
+                    print("Not Enough Money....\nChange: %d" %Money)
+                    Breakout = 0
+                    break
+                if MenuList[UserChoice-1][2] <= 0:
+                    print("Not Enough Coffee.... SOLD OUT")
+                    Breakout = 1
+                    break
+                print("Coffee out.... %s ready" %MenuList[UserChoice-1][0])
+                MenuList[UserChoice-1][2] = MenuList[UserChoice-1][2] - 1
+                Money = Money - MenuList[UserChoice-1][1]
+                File('write', MenuList, MenuListNum)
+            if Breakout == 1:
+                OtherMenu = input("Other Menu? (y/n) : ")
+                if OtherMenu == 'y':
+                    continue
+                else:
+                    break
+            else:
                 break
-            print("Money left : %d" %Money)
-            MenuOut(0)
-            UserChoice = int(input("Coffee # : "))
-            if UserChoice == len(MenuListNum)+1:
-                print("User Choice: Change...\nChange : %d" %Money)
-                break
-            if Money < MenuList[UserChoice-1][1]:
-                print(Money)
-                print(MenuList[UserChoice-1][1])
-                print("Not Enough Money....\nChange: %d" %Money)
-                break
-
-            print("Coffee out.... %s ready" %MenuList[UserChoice-1][0])
-            MenuList[UserChoice-1][2] = MenuList[UserChoice-1][2] - 1
-            Money = Money - MenuList[UserChoice-1][1]
-    Try = input("More Menu? (y/n) : ")
+    Try = input("More Money? (y/n) : ")
     if Try == 'y':
         continue
     else:
