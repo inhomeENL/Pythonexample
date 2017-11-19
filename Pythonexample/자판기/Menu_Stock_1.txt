@@ -1,0 +1,5 @@
+1/Black Coffee/100/20
+2/Milk Coffee/150/20
+3/Gooood Coffee/250/20
+4/Caffe Americano/1500/10
+5/Cappucino/2000/1

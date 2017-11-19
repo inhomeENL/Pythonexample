@@ -57,6 +57,8 @@ print("myadd2 = {}".format(myadd2(vala, valb)))
 #import는 한번 하고 다시 하지않음
 #따라서 현재를 리셋하고 다시 import해야 한다
 '''
+
+'''
 #bisection
 import numpy as np
 import matplotlib.pyplot as plt
@@ -86,3 +88,32 @@ while 1:
 N0 = 100
 x = np.linspace(a, b, 100)
 y = f(x)
+'''
+#2017/11/16
+#   %matplotlib inline
+import numpy
+import matplotlib.pyplot as plt
+import matplotlib.image as mpimg
+img1 = mpimg.imread('aa.jpg')
+'''
+plt.imshow(img1)
+plt.show()
+
+plt.imshow(img1, cmap='gray')
+plt.axis('off')
+plt.show()
+
+plt.imshow(img1[:,:,0], cmap='gray')
+plt.axis('off')
+plt.show()
+'''
+img1_Gray = 0.2126 * img1[:, :, 0] + 0.7152 * img1[:, :, 1] + 0.0722 * img1[:, :, 2]
+plt.imshow(img1_Gray, cmap= 'jet')
+plt.show()
+plt.imsave("aa.png", img1_Gray, cmap= 'gray')
+print(type(img1))
+print(img1.ndim)
+print(img1.shape)
+print(img1.dtype)
+print(img1)
+

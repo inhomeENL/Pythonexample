@@ -67,25 +67,31 @@ def MenuChange():
 
 def File(do, MenuList = [], MenuListNum = []):
     if do == 'write':
-        f = open("Menu_Stock.txt", 'w', encoding='utf-8')
+        f = open("Menu_Stock_1.txt", 'w', encoding='utf-8')
         for i in range(0, len(MenuListNum)):
             f.write("%d/%s/%d/%d\n" % (MenuListNum[i], MenuList[i][0], MenuList[i][1], MenuList[i][2]))
         f.close()
     elif do == 'read':
-        f = open("Menu_Stock.txt", 'r', encoding='utf-8')
-        MenuList = []
-        MenuListNum = []
-        while 1:
-            line = f.readline()
-            if not line:
-                break
-            Data = line.strip().split('/')
-            MenuListNum.append(int(Data[0]))
-            Data.pop(0)
-            Data[1] = int(Data[1])
-            Data[2] = int(Data[2])
-            MenuList.append(Data)
-        return (MenuList, MenuListNum)
+        try:
+            f = open("Menu_Stock_1.txt", 'r', encoding='utf-8')
+            MenuList = []
+            MenuListNum = []
+            while 1:
+                line = f.readline()
+                if not line:
+                    break
+                Data = line.strip().split('/')
+                MenuListNum.append(int(Data[0]))
+                Data.pop(0)
+                Data[1] = int(Data[1])
+                Data[2] = int(Data[2])
+                MenuList.append(Data)
+            f.close()
+            return (MenuList, MenuListNum)
+        except:
+            File('write',[['Black Coffee', 100, 20]],[1])
+            return 0
+
 
 MenuListNum = []
 MenuList = []
@@ -106,17 +112,29 @@ while 1:
             continue
     else:
         while 1:
-            Money = int(Money)
+            for i in range(len(MenuList)):
+                Minimum = MenuList[0][1]
+                if Minimum >= MenuList[i][1]:
+                    Minimum = MenuList[i][1]
             os.system('cls')
+            Money = int(Money)
+            if Money < Minimum:
+                print("Money left: %s" %Money)
+                print("Change: %d" %Money)
+                break
             print("Money left : %d" %Money)
             MenuOut(0)
             UserChoice = int(input("Coffee # : "))
             if UserChoice == len(MenuListNum)+1:
-                print("Change : %d" %Money)
+                print("User Choice: Change...\nChange : %d" %Money)
                 break
             if Money < MenuList[UserChoice-1][1]:
+                print(Money)
+                print(MenuList[UserChoice-1][1])
                 print("Not Enough Money....\nChange: %d" %Money)
                 break
+
+            print("Coffee out.... %s ready" %MenuList[UserChoice-1][0])
             MenuList[UserChoice-1][2] = MenuList[UserChoice-1][2] - 1
             Money = Money - MenuList[UserChoice-1][1]
     Try = input("More Menu? (y/n) : ")
