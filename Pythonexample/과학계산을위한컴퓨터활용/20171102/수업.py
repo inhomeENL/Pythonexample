@@ -107,6 +107,7 @@ plt.imshow(img1[:,:,0], cmap='gray')
 plt.axis('off')
 plt.show()
 '''
+'''
 img1_Gray = 0.2126 * img1[:, :, 0] + 0.7152 * img1[:, :, 1] + 0.0722 * img1[:, :, 2]
 plt.imshow(img1_Gray, cmap= 'jet')
 plt.show()
@@ -116,4 +117,4 @@ print(img1.ndim)
 print(img1.shape)
 print(img1.dtype)
 print(img1)
-
+'''

@@ -3,15 +3,15 @@ import os
 def MenuOut(AdminCode):
     File('read')
     if AdminCode == 0:
-        for i in range(len(MenuListNum)):
-            if MenuList[i][2] == 0:
-                print("%d. %s (%d) - SOLD OUT" % (MenuListNum[i], MenuList[i][0], MenuList[i][1]))
-            print("%d. %s (%d)" %(MenuListNum[i], MenuList[i][0], MenuList[i][1]))
+        for ji in range(len(MenuListNum)):
+            if MenuList[ji][2] == 0:
+                print("%d. %s (%d) - SOLD OUT" % (MenuListNum[ji], MenuList[ji][0], MenuList[ji][1]))
+            print("%d. %s (%d)" %(MenuListNum[ji], MenuList[ji][0], MenuList[ji][1]))
         print("%d. Change (Exit)\n" %(len(MenuListNum)+1))
     else:
-        for i in range(len(MenuListNum)):
+        for j in range(len(MenuListNum)):
             print("Stock #%-3d ID: %-15s  Price: %5d  Stock left: %4d"
-                  %(MenuListNum[i], MenuList[i][0], MenuList[i][1], MenuList[i][2]))
+                  %(MenuListNum[j], MenuList[j][0], MenuList[j][1], MenuList[j][2]))
         print("")
 
 def MenuChange():
@@ -41,9 +41,9 @@ def MenuChange():
                 if Choice == 'ID':
                     DelMenuID = input("Deleted Menu ID: ")
                     MenuListNum.remove(len(MenuListNum))
-                    for i in range(0, len(MenuList)-1):
-                        if MenuList[i][0] == DelMenuID:
-                            MenuList.pop(i)
+                    for ii in range(0, len(MenuList)-1):
+                        if MenuList[ii][0] == DelMenuID:
+                            MenuList.pop(ii)
                 elif Choice == "#":
                     DelMenuNum = int(input("Deleted Menu Number : "))
                     MenuListNum.remove(len(MenuListNum))
@@ -53,9 +53,9 @@ def MenuChange():
             Hold = 0
             if Choice == "ID":
                 StockChangeID = input("Changed Menu ID : ")
-                for i in range(0, len(MenuList)):
-                    if MenuList[i][0] == StockChangeID:
-                        Hold = int(i)
+                for ij in range(0, len(MenuList)):
+                    if MenuList[ij][0] == StockChangeID:
+                        Hold = int(ij)
                         break
             elif Choice == "#":
                 StockChangeNum = int(input("Changed Menu Number : "))
@@ -64,8 +64,8 @@ def MenuChange():
             MenuList[Hold][2] = MenuList[Hold][2] + StockChange
         os.system('cls')
         MenuOut(1)
-        UserChoice = input("Anymore Changes?(y/n) : ")
-        if UserChoice == "y":
+        UserChoiceI = input("Anymore Changes?(y/n) : ")
+        if UserChoiceI == "y":
             continue
         else:
             File('write',MenuList, MenuListNum)
